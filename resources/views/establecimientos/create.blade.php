@@ -1,5 +1,18 @@
 @extends('layouts.app')
 
+@section('styles')
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+  integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+  crossorigin=""/>
+  <!--<link rel="stylesheet" href="./esri-leaflet-geocoder.css">-->
+  <link
+      rel="stylesheet"
+      href="https://unpkg.com/esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css"
+    />
+@endsection
+
 @section('content')
     <div class="container">
         <h1 class="text-center mt-4">Registrar establecimiento</h1>
@@ -73,10 +86,71 @@
                             class="form-control">
                             <p class="text-secondary mt-5 mb-3 text-center">El asistente colocara una dirección estimada, mueve el pin hacia el lugar correcto</p>
                     </div>
+                    <div class="form-group">
+                        <div id="mapa" style="height: 300px; background-color: gray;"></div> 
+                            <p class="informacion">
+                                Confirma que los siguientes campos son correctos
+                            </p>
+                            <div class="form-group">
+                                <label for="direccion">Dirección</label>
+
+                                    <input 
+                                        class="form-control"
+                                        @error('direccion') is-invalid @endError
+                                        placeholder="direccion"
+                                        value="{{ old('direccion') }}">
+                                    </input>
+                                    @error('direccion') 
+                                        <div class="invalid-feedback">
+                                            {{$message}}
+                                        </div>
+                                    @endError
+                                
+                            </div>
+                        </div>
+                        <div class="form-group">
+                                <div class="form-group">
+                                    <label for="colonia">Colonia</label>
+    
+                                        <input 
+                                            class="form-control"
+                                            @error('colonia') is-invalid @endError
+                                            placeholder="direccion"
+                                            value="{{ old('direccion') }}">
+                                        </input>
+                                        @error('colonia') 
+                                            <div class="invalid-feedback">
+                                                {{$message}}
+                                            </div>
+                                        @endError
+                                    
+                                </div>
+                            </div>
+                            <input type="hidden" id="lat" name="lat" value="{{old('lat')}}">
+                            <input type="hidden" id="lng" name="lng" value="{{old('lng')}}">
                 </fieldset>                                    
             </form>
         </div>
         
     </div>
     
+@endsection
+
+@section('scripts')
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+
+    <script src="https://unpkg.com/esri-leaflet@3.0.1/dist/esri-leaflet.js"
+    integrity="sha512-JmpptMCcCg+Rd6x0Dbg6w+mmyzs1M7chHCd9W8HPovnImG2nLAQWn3yltwxXRM7WjKKFFHOAKjjF2SC4CgiFBg=="
+    crossorigin=""></script>
+
+    
+    <!--<script src="./esri-leaflet-geocoder.js"></script>-->
+
+    <script>
+
+    </script>
+
 @endsection
