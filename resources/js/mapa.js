@@ -20,28 +20,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
         //Geocode service
-        const geocodeService = L.esri.Geocoding.geocodeService();
+        const geocodeService = L.esri.Geocoding.geocodeService({
+            "apikey" :"AAPK7660a91fbfe449b78f06caa33fa997faTBMcfarz0yHFuyR-mpGqE58XjNBvW9snHhVZdCERxEcbEv-M6ibOlbVrv2cRN6MF"
+        });
 
         //Detectar movimiento del marker
         marker.on('moveend' , function(e) {
+
+            
+
             console.log('Soltaste el ping');
-            console.log(e.target);
+            //console.log(e.target);
 
             marker = e.target;
             
             const posicion = marker.getLatLng();
-            //console.log(marker.getLatLng());
+            console.log(marker.getLatLng());
+            const longitud = marker.getLatLng().lng;
+            const latitud = marker.getLatLng().lat;
 
 
             //Centrar automaticamente
             mapa.panTo( new L.LatLng(posicion.lat, posicion.lng)  );
 
             //Reverse GeoCoding, cuando el usuario reubica el pin
-            geocodeService.reverse().latlng(posicion, 16).run(function(error, resultado) {
-                console.log('Este es el Error: ' + error);
+            geocodeService
+            .reverse()
+            .latlng(marker.getLatLng())
+            .run( function(error, result) {
+                console.log('Este es el Error: ' +  JSON.stringify(error)  );
 
-                console.log('Este es el resultado: ' +resultado);
+                console.log('Este es el resultado: ' + JSON.stringify(result.address ));
+
+                marker.bindPopup(result.address.LongLabel);
+                marker.openPopup();
             });
+
+            
         })
     }
 

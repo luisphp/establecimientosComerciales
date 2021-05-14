@@ -1,16 +1,15 @@
 @extends('layouts.app')
 
 @section('styles')
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-  integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-  crossorigin=""/>
-  <!--<link rel="stylesheet" href="./esri-leaflet-geocoder.css">-->
-  <link
+    <!-- Load Leaflet from CDN-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <!-- Esri Leaflet Geocoder -->
+    <link
       rel="stylesheet"
       href="https://unpkg.com/esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css"
     />
+
 @endsection
 
 @section('content')
@@ -138,19 +137,11 @@
 
 @section('scripts')
 
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-    crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet-src.js"></script>
 
-    <script src="https://unpkg.com/esri-leaflet@3.0.1/dist/esri-leaflet.js"
-    integrity="sha512-JmpptMCcCg+Rd6x0Dbg6w+mmyzs1M7chHCd9W8HPovnImG2nLAQWn3yltwxXRM7WjKKFFHOAKjjF2SC4CgiFBg=="
-    crossorigin=""></script>
+    <!-- Load Esri Leaflet from CDN -->
+    <script src="https://unpkg.com/esri-leaflet"></script>
 
-    
-    <!--<script src="./esri-leaflet-geocoder.js"></script>-->
-
-    <script>
-
-    </script>
+    <script src="https://unpkg.com/esri-leaflet-geocoder"></script>
 
 @endsection
