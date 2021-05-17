@@ -17,7 +17,7 @@
         <h1 class="text-center mt-4">Registrar establecimiento</h1>
 
         <div class="mt-5 justify-content-center">
-            <form action="col-md-12 card card-body">
+            <form action="" class="col-md-12 card card-body">
                 <fieldset class="border p-4">
                     <legend class="text-primary">Nombre, Categoría e imagen principal</legend>
 
@@ -29,7 +29,7 @@
                             class="form-control @error('nombre') is-invalid @endError"
                             placeholder="Nombre de establecimiento"
                             name="nombre"
-                            valie="{{ old('nombre') }}">
+                            value="{{ old('nombre') }}">
                             @error('nombre') 
                                 <div class="invalid-feedback">
                                     {{$message}}
@@ -93,7 +93,8 @@
                             <div class="form-group">
                                 <label for="direccion">Dirección</label>
 
-                                    <input 
+                                    <input
+                                        id="direccion" 
                                         class="form-control"
                                         @error('direccion') is-invalid @endError
                                         placeholder="direccion"
@@ -111,11 +112,12 @@
                                 <div class="form-group">
                                     <label for="colonia">Colonia</label>
     
-                                        <input 
+                                        <input
+                                            id="colonia" 
                                             class="form-control"
                                             @error('colonia') is-invalid @endError
-                                            placeholder="direccion"
-                                            value="{{ old('direccion') }}">
+                                            placeholder="colonia"
+                                            value="{{ old('colonia') }}">
                                         </input>
                                         @error('colonia') 
                                             <div class="invalid-feedback">

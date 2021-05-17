@@ -1,4 +1,10 @@
+import { OpenStreetMapProvider } from 'leaflet-geosearch';
+// setup
+//const provider = new OpenStreetMapProvider();
+
 document.addEventListener('DOMContentLoaded', () => {
+
+    const provider = new OpenStreetMapProvider();
 
     if(document.querySelector('#mapa')){
         const lat = 10.50477;
@@ -24,10 +30,12 @@ document.addEventListener('DOMContentLoaded', () => {
             "apikey" :"AAPK7660a91fbfe449b78f06caa33fa997faTBMcfarz0yHFuyR-mpGqE58XjNBvW9snHhVZdCERxEcbEv-M6ibOlbVrv2cRN6MF"
         });
 
+        //Buscado de direcciones 
+        const buscador = document.querySelector('#formbuscador');
+        buscador.addEventListener('input', buscarDireccion);        
+
         //Detectar movimiento del marker
         marker.on('moveend' , function(e) {
-
-            
 
             console.log('Soltaste el ping');
             //console.log(e.target);
@@ -39,7 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const longitud = marker.getLatLng().lng;
             const latitud = marker.getLatLng().lat;
 
-
             //Centrar automaticamente
             mapa.panTo( new L.LatLng(posicion.lat, posicion.lng)  );
 
@@ -48,16 +55,42 @@ document.addEventListener('DOMContentLoaded', () => {
             .reverse()
             .latlng(marker.getLatLng())
             .run( function(error, result) {
-                console.log('Este es el Error: ' +  JSON.stringify(error)  );
+               // console.log('Este es el Error: ' +  JSON.stringify(error)  );
 
                 console.log('Este es el resultado: ' + JSON.stringify(result.address ));
 
                 marker.bindPopup(result.address.LongLabel);
                 marker.openPopup();
+
+                //Llenar los campos
+                llenarInputs(result);
+
             });
 
             
-        })
+        });
+
+
+        //Llenar inputs
+        function llenarInputs(result){
+            //console.log('Desde llenar inputs', result);
+            //document.querySelector('#direccion').value() = resultado.Address;
+            document.querySelector('#direccion').value = result.address.Address || '';
+            document.querySelector('#colonia').value = result.address.City || '';
+            document.querySelector('#lat').value = result.latlng.lat || '';
+            document.querySelector('#lng').value = result.latlng.lng || '';
+        }
+
+        function buscarDireccion(e){
+            if(e.target.value.length >= 10){
+                //Hacemos la consulta
+                
+            }
+            console.log('provider: ', provider);
+            console.log(e.target.value.length);
+            
+        }
+
     }
 
 
