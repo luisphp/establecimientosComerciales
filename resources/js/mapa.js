@@ -11,6 +11,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const lng = -66.91369;
     
         const mapa = L.map('mapa').setView([lat, lng], 16);
+
+        //Eliminar pines previos
+        //let markers = new L.FeatureGroup().addTo(mapa);
+        let markers = new L.LayerGroup().addTo(mapa);
     
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -23,6 +27,9 @@ document.addEventListener('DOMContentLoaded', () => {
             draggable: true,
             autoPan: true
         }).addTo(mapa);
+        //}).addTo(markers);
+
+        markers.addLayer(marker);
 
 
         //Geocode service
@@ -32,18 +39,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
         //Buscado de direcciones 
         const buscador = document.querySelector('#formbuscador');
-        buscador.addEventListener('input', buscarDireccion);        
+        buscador.addEventListener('blur', buscarDireccion);        
 
-        //Detectar movimiento del marker
+        reubicarPin(marker);
+
+        function reubicarPin(marker){
+                    //Detectar movimiento del marker
         marker.on('moveend' , function(e) {
-
-            console.log('Soltaste el ping');
+            // console.log('Soltaste el ping');
             //console.log(e.target);
-
             marker = e.target;
             
             const posicion = marker.getLatLng();
-            console.log(marker.getLatLng());
+            // console.log(marker.getLatLng());
             const longitud = marker.getLatLng().lng;
             const latitud = marker.getLatLng().lat;
 
@@ -51,24 +59,19 @@ document.addEventListener('DOMContentLoaded', () => {
             mapa.panTo( new L.LatLng(posicion.lat, posicion.lng)  );
 
             //Reverse GeoCoding, cuando el usuario reubica el pin
-            geocodeService
-            .reverse()
-            .latlng(marker.getLatLng())
-            .run( function(error, result) {
+            geocodeService.reverse().latlng(marker.getLatLng()).run( function(error, result) {
                // console.log('Este es el Error: ' +  JSON.stringify(error)  );
 
-                console.log('Este es el resultado: ' + JSON.stringify(result.address ));
+                // console.log('Este es el resultado: ' + JSON.stringify(result.address ));
 
                 marker.bindPopup(result.address.LongLabel);
                 marker.openPopup();
 
                 //Llenar los campos
                 llenarInputs(result);
-
             });
-
-            
         });
+        }
 
 
         //Llenar inputs
@@ -82,12 +85,56 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         function buscarDireccion(e){
-            if(e.target.value.length >= 10){
+            if(e.target.value.length >= 5){
                 //Hacemos la consulta
+                provider.search({query: e.target.value  + ' Caracas VE '})
+                .then(resultado => {
+                    if(resultado[0]){
+                        // console.log('La query', resultado[0]);
+
+                        //Limpiamos los pines previos
+                        markers.clearLayers();
+
+                        //Reverse GeoCoding, cuando el usuario reubica el pin
+                    geocodeService
+                    .reverse()
+                    .latlng(resultado[0].bounds[0], 16)
+                    .run( function(error, result) {
+                    // console.log('Este es el Error: ' +  JSON.stringify(error)  );
+
+                        //console.log('Este es el resultado: ' + JSON.stringify(result) );
+
+                       // Llenar los inputs
+                       llenarInputs(result);
+
+                       // Mover el pin
+                        mapa.setView(resultado[0].bounds[0], 16);
+
+                        // Agregar el pin
+                        let marker;
+    
+                        // Agregar el pin
+                        marker = new L.marker(resultado[0].bounds[0], {
+                            draggable: true,
+                            autoPan: true
+                        }).addTo(mapa);
+
+                        // Asignar el contenedor de markers el nuevo pin
+                        markers.addLayer(marker);
+
+                       // Permitir al usuario mover el pin
+                       reubicarPin(marker);
+                       
+                    });
+
+                    }
                 
+                }).catch(error => {
+                    console.log('Error buscarDireccion: ' , error);
+                })
             }
-            console.log('provider: ', provider);
-            console.log(e.target.value.length);
+            //console.log('provider: ', provider);
+            //console.log(e.target.value.length);
             
         }
 
