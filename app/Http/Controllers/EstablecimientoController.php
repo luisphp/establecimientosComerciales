@@ -30,7 +30,7 @@ class EstablecimientoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd('Desde Establecimiento Store');
     }
 
     /**

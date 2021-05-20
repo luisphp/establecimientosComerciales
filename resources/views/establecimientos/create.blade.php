@@ -19,7 +19,11 @@
         <h1 class="text-center mt-4">Registrar establecimiento</h1>
 
         <div class="mt-5 justify-content-center">
-            <form action="" class="col-md-12 card card-body">
+            <form action="{{ route('establecimiento.store') }}" 
+                class="col-md-12 card card-body"
+                method="POST"
+                enctype="multipart/form-data">
+                @csrf
                 <fieldset class="border p-4">
                     <legend class="text-primary">Nombre, Categoría e imagen principal</legend>
 
