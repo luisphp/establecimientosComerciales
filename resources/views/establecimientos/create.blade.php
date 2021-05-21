@@ -100,7 +100,8 @@
                                 <label for="direccion">Dirección</label>
 
                                     <input
-                                        id="direccion" 
+                                        id="direccion"
+                                        name="direccion" 
                                         class="form-control"
                                         @error('direccion') is-invalid @endError
                                         placeholder="direccion"
@@ -120,6 +121,7 @@
     
                                         <input
                                             id="colonia" 
+                                            name="colonia"
                                             class="form-control"
                                             @error('colonia') is-invalid @endError
                                             placeholder="colonia"

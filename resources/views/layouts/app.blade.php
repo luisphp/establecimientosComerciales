@@ -22,6 +22,14 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
+
+    <!-- Se muestra el mensaje del controlador -->
+    @if(  session( 'estado' )  )
+        <div class="alert alert-primary" role="alert"> 
+            {{ session('estado') }}    
+        </div>
+    @endif
+
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">

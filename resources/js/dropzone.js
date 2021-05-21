@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const dropzone = new Dropzone('div#dropzone', {
             url : "http://localhost/establecimientosComerciales/public/imagenes/store",
-            dictDefaultMessage: 'Sube hasta o imagenes',
+            dictDefaultMessage: 'Sube hasta 10 imagenes',
             maxFiles: 10,
             required: true,
             acceptedFiles: ".png ,.jpg",
