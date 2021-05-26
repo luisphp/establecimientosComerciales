@@ -16,6 +16,6 @@ class InicioController extends Controller
     {
         //
 
-        return 'Desde inicio controller';
+        return view('inicio.index');
     }
 }
