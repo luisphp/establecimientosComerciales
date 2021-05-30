@@ -1,5 +1,6 @@
 <template>
     <div class="mapa" >
+        <!-- Transiciones Vue page ransition: https://orlandster.github.io/vue-page-transition/ -->
         <l-map
             :zoom="zoom"
             :center="center"
@@ -13,6 +14,7 @@
             v-bind:key="establecimiento.id" 
             :lat-lng="obtenerCoordenadas(establecimiento)"
             :icon="iconoEstablecimiento(establecimiento)"
+            @click="redireccionar(establecimiento.id)"
             >
             <l-tooltip>
                 <div>
@@ -84,8 +86,9 @@ export default {
                 iconUrl: `images/iconos/${slug}.png`,
                 iconSize: [40, 50]
             });
-
-            
+        },
+        redireccionar(id){
+            this.$router.push({name: 'establecimiento', params: {id: id}})
         }
     },
     computed: {
@@ -106,13 +109,13 @@ export default {
         "$store.state.categoria": function() {
             //console.log('La categoria cambio a: ', this.$store.state.categoria );
 
-            axios.get('./api/categoria/' + this.$store.getters.obtenerCategoria)
+            axios.get('./api/filtro/categoria/' + this.$store.getters.obtenerCategoria)
             .then((result) => {
-               // console.log('resultado de la consulta', result.data)
+               console.log('resultado de la consulta', result.data)
 
-               this.$store.coomit('AGREGAR_ESTABLECIMIENTOS', result.data);
+               this.$store.commit('AGREGAR_ESTABLECIMIENTOS', result.data);
             }).catch((err) => {
-                console.log('Error en la consulta');
+                console.log('Error en la consulta', err);
             });
         }
     }

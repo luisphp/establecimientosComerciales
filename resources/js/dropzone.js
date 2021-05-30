@@ -14,6 +14,33 @@ document.addEventListener('DOMContentLoaded', () => {
             headers: {
                 'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').content
             },
+            init: function(){
+                const galeria = document.querySelectorAll('#galeria');
+
+                //onsole.log('Esta es la galeria: ', galeria );
+
+                if(galeria.length > 0){
+                    galeria.forEach(imagen => {
+                        const imagen_publicada = {};
+                        imagen_publicada.size = 1;
+
+                        imagen_publicada.nombreServidor = imagen.value;
+
+
+                        console.log(imagen.value);
+
+                        imagen_publicada.name = imagen.value;
+
+                        this.options.addedfile.call(this, imagen_publicada);
+                        this.options.thumbnail.call(this, imagen_publicada, `../storage/${imagen_publicada.name}`);
+
+                        imagen_publicada.previewElement.classList.add('dz-success');
+                        imagen_publicada.previewElement.classList.add('dz-complete');
+
+
+                    });
+                }
+            },
             success: function ( file, respuesta){
                 // console.log(file);
                 console.log( respuesta  );
