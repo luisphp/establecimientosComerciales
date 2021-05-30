@@ -3,11 +3,15 @@
         <h2 class="text-center mb-5">{{ establecimiento.nombre }} </h2>
 
         <div class="row align-items-start">
-            <div class="col-md-8">
+            <div class="col-md-8 order-2">
                 <img :src="`./storage/${establecimiento.imagen_principal}`" class="img-fluid">
                 <p class="mt-5">{{ establecimiento.descripcion }}</p>
+                <galeria-imagenes></galeria-imagenes>
             </div>
-            <aside class="col-md-4 bg-primary">
+
+                
+
+            <aside class="col-md-4 bg-primary order-1">
                 <!-- mapa -->
                 <div>
                     <mapa-ubicacion></mapa-ubicacion>
@@ -48,11 +52,15 @@
 </template>
 
 <script>
-import mapaUbicacion from './mapaUbicacion.vue';
+import MapaUbicacion from './MapaUbicacion';
+import GaleriaImagenes from './GaleriaImagenes';
 
 
 export default {
-  components: { mapaUbicacion },
+  components: { 
+      MapaUbicacion, 
+      GaleriaImagenes 
+      },
 
     mounted() {
         const {id} = this.$route.params;
@@ -60,7 +68,7 @@ export default {
 
         axios.get(`./api/establecimiento/` + id)
         .then(respuesta => {
-            console.log(respuesta.data);
+            //console.log(respuesta.data);
             //this.cafes = respuesta.data;
             //this.$store.commit('AGREGAR_CAFES', respuesta.data);
             this.$store.commit('AGREGAR_ESTABLECIMIENTO', respuesta.data );

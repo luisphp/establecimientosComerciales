@@ -31,7 +31,7 @@ export default {
     mounted(){
         axios.get('./api/categoria/restaurant')
         .then(respuesta => {
-            console.log(respuesta.data);
+            //console.log(respuesta.data);
             //this.hoteles = respuesta.data;
             this.$store.commit('AGREGAR_RESTAURANTES', respuesta.data);
         })
