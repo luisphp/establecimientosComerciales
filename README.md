@@ -15,6 +15,7 @@
 ### Captures
 
 <img src="https://github.com/luisphp/establecimientosComerciales/blob/main/captures/main.png?raw=true" >
+<img src="https://github.com/luisphp/establecimientosComerciales/blob/main/captures/registrar_establecimiento.png?raw=true" >
 <img src="https://github.com/luisphp/establecimientosComerciales/blob/main/captures/login.png?raw=true" >
 <img src="https://github.com/luisphp/establecimientosComerciales/blob/main/captures/detalles%20de%20negocio.png?raw=true" >
 <img src="https://github.com/luisphp/establecimientosComerciales/blob/main/captures/Lista_de_negocios.png?raw=true" >
