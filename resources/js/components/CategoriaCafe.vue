@@ -1,5 +1,6 @@
 <template>
     <div class="container mt-5">
+        <testeo></testeo>
         <h2> Cafés </h2>
         <div class="row">
             <div class="col-md-4 mt-4" v-for="cafe in this.cafes" v-bind:key="cafe.id">

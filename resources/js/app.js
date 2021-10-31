@@ -26,6 +26,7 @@ import router from './router/index'
 //Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('pagina-inicio', require('./components/PaginaInicio.vue').default);
 Vue.component('categoria-cafe', require('./components/CategoriaCafe.vue').default);
+Vue.component('testeo', require('./components/Testeo.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
